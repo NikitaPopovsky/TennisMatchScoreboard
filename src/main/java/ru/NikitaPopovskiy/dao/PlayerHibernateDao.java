@@ -31,6 +31,11 @@ public class PlayerHibernateDao implements PlayerDao{
 
     @Override
     public Optional<Player> getByName(String name) {
+        try (Session session = sessionFactory.openSession()) {
+            //session.get()
+            //нужно писать sql
+        }
+
         return Optional.empty();
     }
 }

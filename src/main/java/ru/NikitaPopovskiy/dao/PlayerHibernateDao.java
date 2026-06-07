@@ -2,10 +2,9 @@ package ru.NikitaPopovskiy.dao;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.hibernate.Transaction;
 import ru.NikitaPopovskiy.entity.Player;
+import ru.NikitaPopovskiy.exception.DataBaseUnavailableException;
 
-import java.io.IOException;
 import java.sql.SQLException;
 import java.util.Optional;
 
@@ -25,17 +24,19 @@ public class PlayerHibernateDao implements PlayerDao{
             session.getTransaction().commit();
             return player;
         } catch (Exception e) {
-            e.printStackTrace();
+            throw new DataBaseUnavailableException("");
         }
     }
 
     @Override
     public Optional<Player> getByName(String name) {
         try (Session session = sessionFactory.openSession()) {
-            //session.get()
-            //нужно писать sql
+            String hql = "FROM players WHERE name = :name";
+            return session.createQuery(hql, Player.class)
+                    .setParameter("name", name)
+                    .uniqueResultOptional();
+        } catch (Exception e) {
+            throw new DataBaseUnavailableException("");
         }
-
-        return Optional.empty();
     }
 }

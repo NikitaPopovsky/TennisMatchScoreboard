@@ -6,9 +6,18 @@ import jakarta.servlet.annotation.WebListener;
 
 @WebListener
 public class AppContextListener implements ServletContextListener {
+
     @Override
     public void contextInitialized(ServletContextEvent sce) {
-        //после внедрения зависимостей, загнать в контекст
-        ServletContextListener.super.contextInitialized(sce);
+        ApplicationContext context = new ApplicationContext();
+        sce.getServletContext().setAttribute("appContext", context);
+    }
+
+    @Override
+    public void contextDestroyed(ServletContextEvent sce) {
+        ApplicationContext context = (ApplicationContext) sce.getServletContext().getAttribute("appContext");
+        if (context != null) {
+            context.close();
+        }
     }
 }

@@ -1,29 +1,21 @@
 package ru.NikitaPopovskiy.entity;
 
 import jakarta.persistence.*;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.NonNull;
-import lombok.RequiredArgsConstructor;
+import lombok.Getter;
 
 @Entity
+@Getter
 @Table(name = "matches")
-@Data
-@NoArgsConstructor
-@RequiredArgsConstructor
-public class Match {
+public class MatchEntity {
     @Id
     private int id;
-    @NonNull
     @ManyToOne
     @JoinColumn(name = "player1", referencedColumnName = "id")
-    private Player player1;
-    @NonNull
+    private PlayerEntity player1;
     @ManyToOne
     @JoinColumn(name = "player2", referencedColumnName = "id")
-    private Player player2;
-    @NonNull
+    private PlayerEntity player2;
     @ManyToOne
     @JoinColumn(name = "winner", referencedColumnName = "id")
-    private Player winner;
+    private PlayerEntity winner;
 }

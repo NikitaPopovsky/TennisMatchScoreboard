@@ -10,8 +10,8 @@
         <property name="hibernate.show_sql">true</property>
         <property name="hibernate.dialect">org.hibernate.dialect.PostgreSQLDialect</property>
 
-        <mapping class="ru.NikitaPopovskiy.entity.Player"/>
-        <mapping class="ru.NikitaPopovskiy.entity.Match"/>
+        <mapping class="ru.NikitaPopovskiy.entity.PlayerEntity"/>
+        <mapping class="ru.NikitaPopovskiy.entity.MatchEntity"/>
 
     </session-factory>
 </hibernate-configuration>

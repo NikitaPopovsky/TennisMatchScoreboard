@@ -1,12 +1,11 @@
 package ru.NikitaPopovskiy.dao;
 
-import ru.NikitaPopovskiy.entity.Player;
+import ru.NikitaPopovskiy.entity.PlayerEntity;
 
-import java.sql.SQLException;
 import java.util.Optional;
 
 
 public interface PlayerDao {
-    Player save (Player player);
-    Optional<Player> getByName (String name);
+    PlayerEntity save (PlayerEntity player);
+    Optional<PlayerEntity> getByName (String name);
 }

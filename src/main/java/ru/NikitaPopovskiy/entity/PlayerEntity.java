@@ -1,17 +1,14 @@
 package ru.NikitaPopovskiy.entity;
 
 import jakarta.persistence.*;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.NonNull;
-import lombok.RequiredArgsConstructor;
+import lombok.*;
 
 @Entity
 @Table (name = "players")
-@Data
-@NoArgsConstructor
+@Getter
 @RequiredArgsConstructor
-public class Player {
+@NoArgsConstructor
+public class PlayerEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;

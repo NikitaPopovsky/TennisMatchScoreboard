@@ -2,7 +2,7 @@ package ru.NikitaPopovskiy.dao;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import ru.NikitaPopovskiy.entity.Player;
+import ru.NikitaPopovskiy.entity.PlayerEntity;
 import ru.NikitaPopovskiy.enums.ExceptionMessage;
 import ru.NikitaPopovskiy.exception.DataBaseUnavailableException;
 
@@ -16,7 +16,7 @@ public class PlayerHibernateDao implements PlayerDao{
     }
 
     @Override
-    public Player save(Player player) {
+    public PlayerEntity save(PlayerEntity player) {
         try (Session session = sessionFactory.openSession()) {
             session.beginTransaction();
             session.persist(player);
@@ -29,10 +29,10 @@ public class PlayerHibernateDao implements PlayerDao{
     }
 
     @Override
-    public Optional<Player> getByName(String name) {
+    public Optional<PlayerEntity> getByName(String name) {
         try (Session session = sessionFactory.openSession()) {
-            String hql = "FROM Player WHERE name = :name";
-            return session.createQuery(hql, Player.class)
+            String hql = "FROM PlayerEntity WHERE name = :name";
+            return session.createQuery(hql, PlayerEntity.class)
                     .setParameter("name", name)
                     .uniqueResultOptional();
         } catch (Exception e) {

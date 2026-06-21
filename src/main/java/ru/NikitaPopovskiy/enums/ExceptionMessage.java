@@ -1,7 +1,8 @@
 package ru.NikitaPopovskiy.enums;
 
 public enum ExceptionMessage {
-    DB_NOT_UNAVAILABLE ("Database execution error");
+    DB_NOT_UNAVAILABLE ("Database execution error"),
+    PLAYER_NOT_FOUND ("Player not found");
 
     private final String message;
 

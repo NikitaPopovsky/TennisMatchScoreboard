@@ -1,15 +1,29 @@
 package ru.NikitaPopovskiy.model;
 
+import lombok.Getter;
+
+import java.util.HashMap;
+import java.util.Map;
+
+
 public class SetScore implements Score {
-    private int firstPlayerScore = 0;
-    private int secondPlayerScore = 0;
+    private final Map<Player, Integer> score = new HashMap<>();
+    @Getter
+    private GameScore currentGameScore;
+
+    public SetScore(Player firstPlayer, Player secondPlayer) {
+        score.put(firstPlayer, 0);
+        score.put(secondPlayer, 0);
+        this.currentGameScore = new GameScore(firstPlayer, secondPlayer);
+    }
 
     @Override
-    public String getFirstPlayerScore() {
-        return String.valueOf(firstPlayerScore);
+    public String getPlayerScore(Player player) {
+        return String.valueOf(score.get(player));
     }
+
     @Override
-    public String getSecondPlayerScore() {
-        return String.valueOf(secondPlayerScore);
+    public void pointWonBy(Player player) {
+        currentGameScore.pointWonBy(player);
     }
 }

@@ -39,4 +39,13 @@ public class PlayerHibernateDao implements PlayerDao{
             throw new DataBaseUnavailableException(ExceptionMessage.DB_NOT_UNAVAILABLE.getMessage());
         }
     }
+
+    @Override
+    public Optional<PlayerEntity> getById(int id) {
+        try (Session session = sessionFactory.openSession()) {
+            return Optional.ofNullable(session.find(PlayerEntity.class, id));
+        } catch (Exception e) {
+            throw new DataBaseUnavailableException(ExceptionMessage.DB_NOT_UNAVAILABLE.getMessage());
+        }
+    }
 }

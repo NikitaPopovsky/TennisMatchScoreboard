@@ -12,7 +12,9 @@ public class Match {
     private final Player firstPlayer;
     @NonNull
     private final Player secondPlayer;
-    private final SetScore setScore = new SetScore();
-    private final GameScore gameScore = new GameScore();
-    private final PointScore pointScore = new PointScore();
+    private SetScore currentScoreSet;
+
+    public void pointByWon(Player player) {
+        currentScoreSet.pointWonBy(player);
+    }
 }

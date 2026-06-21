@@ -16,4 +16,12 @@ public enum TennisPoint {
     public String getPoint() {
         return point;
     }
+
+    public TennisPoint next() {
+        return values()[this.ordinal()+1];
+    }
+
+    public Boolean isMore(TennisPoint point) {
+        return this.ordinal() > point.ordinal();
+    }
 }

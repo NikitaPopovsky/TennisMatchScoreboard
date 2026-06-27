@@ -1,9 +1,6 @@
 package ru.NikitaPopovskiy.model;
 
 import lombok.Getter;
-import ru.NikitaPopovskiy.enums.ExceptionMessage;
-import ru.NikitaPopovskiy.enums.TennisPoint;
-import ru.NikitaPopovskiy.exception.PlayerNotFoundException;
 
 import java.util.HashMap;
 import java.util.Map;

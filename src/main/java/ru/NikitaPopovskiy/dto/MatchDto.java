@@ -14,4 +14,5 @@ public class MatchDto {
     private String secondPlayerGame;
     private String firstPlayerPoint;
     private String secondPlayerPoint;
+    private String winnerName;
 }

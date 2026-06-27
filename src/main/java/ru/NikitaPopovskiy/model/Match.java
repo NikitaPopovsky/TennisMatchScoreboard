@@ -5,9 +5,13 @@ import lombok.Getter;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 
+import java.util.UUID;
+
 @RequiredArgsConstructor
 @Getter
 public class Match {
+    @NonNull
+    private final UUID id;
     @NonNull
     private final Player firstPlayer;
     @NonNull

@@ -9,7 +9,7 @@ public class MatchMapper {
         Player secondPlayer = match.getSecondPlayer();
         SetScore setScore = match.getCurrentScoreSet();
         GameScore gameScore = setScore.getCurrentGameScore();
-        PointScore pointScore = gameScore.getCurrentPointScore();
+        DisplayScore pointScore = (DisplayScore) gameScore.getCurrentPointScore();
         return MatchDto.builder()
                 .firstPlayerName(firstPlayer.getName())
                 .secondPlayerName(secondPlayer.getName())
@@ -22,7 +22,7 @@ public class MatchMapper {
                 .build();
     }
 
-    private static String getPlayerScore (Score score, Player player) {
-        return score.getPlayerScore(player);
+    private static String getPlayerScore (DisplayScore score, Player player) {
+        return score.getPlayerScoreDisplay(player);
     }
 }

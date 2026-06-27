@@ -6,24 +6,34 @@ import java.util.HashMap;
 import java.util.Map;
 
 
-public class SetScore implements Score {
-    private final Map<Player, Integer> score = new HashMap<>();
+public class SetScore extends AbstractScore<Integer> {
+    private static final int SCORE_TO_WIN = 2;
     @Getter
     private GameScore currentGameScore;
 
     public SetScore(Player firstPlayer, Player secondPlayer) {
-        score.put(firstPlayer, 0);
-        score.put(secondPlayer, 0);
-        this.currentGameScore = new GameScore(firstPlayer, secondPlayer);
+        super(firstPlayer, secondPlayer, 0);
     }
 
     @Override
-    public String getPlayerScore(Player player) {
-        return String.valueOf(score.get(player));
+    public void pointWonBy(Player pointWinner) {
+        currentGameScore.pointWonBy(pointWinner);
+
+        if (currentGameScore.hasWinner()){
+            Player opponent = getOpponent(pointWinner);
+            int opponentScore = score.get(opponent);
+            int pointWinnerScore = score.get(pointWinner) + 1;
+
+            updatePlayerScore(pointWinner, pointWinnerScore);
+            this.currentGameScore = new GameScore(firstPlayer, secondPlayer);
+            if (isWin(pointWinnerScore, opponentScore)) {
+                this.winner = pointWinner;
+            }
+        }
     }
 
     @Override
-    public void pointWonBy(Player player) {
-        currentGameScore.pointWonBy(player);
+    protected boolean isWin(Integer pointWinnerScore, Integer opponentScore) {
+        return pointWinnerScore == SCORE_TO_WIN;
     }
 }

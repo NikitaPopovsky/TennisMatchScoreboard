@@ -12,9 +12,18 @@ public class Match {
     private final Player firstPlayer;
     @NonNull
     private final Player secondPlayer;
-    private SetScore currentScoreSet;
+    private final SetScore currentScoreSet = new SetScore(firstPlayer, secondPlayer);
+    Player winner;
 
     public void pointByWon(Player player) {
         currentScoreSet.pointWonBy(player);
+
+        if (currentScoreSet.hasWinner()){
+            this.winner = player;
+        }
+    }
+
+    public Boolean hasWinner() {
+        return winner != null;
     }
 }

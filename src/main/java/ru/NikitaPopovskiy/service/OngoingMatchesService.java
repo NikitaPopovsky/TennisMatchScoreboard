@@ -34,6 +34,9 @@ public class OngoingMatchesService {
         Player player = PlayerMapper.toModel(playerEntity);
         Match match = getMatch(matchUuid);
         match.pointByWon(player);
+        if (match.hasWinner()) {
+
+        }
     }
 
 }

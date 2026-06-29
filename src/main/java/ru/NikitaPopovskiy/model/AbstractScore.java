@@ -1,6 +1,7 @@
 package ru.NikitaPopovskiy.model;
 
 import lombok.Getter;
+import ru.NikitaPopovskiy.enums.TennisPoint;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -14,15 +15,21 @@ public abstract class AbstractScore <T> implements DisplayScore{
 
     @Override
     public String getPlayerScoreDisplay(Player player) {
-        return String.valueOf(score.get(player));
+        T value = score.get(player);
+        if (value instanceof TennisPoint) {
+             return ((TennisPoint) value).getPoint();
+        }
+        return String.valueOf(value);
     }
 
     public AbstractScore(Player firstPlayer, Player secondPlayer, T initValue) {
         this.firstPlayer = firstPlayer;
         this.secondPlayer = secondPlayer;
+        score.put(firstPlayer, initValue);
+        score.put(secondPlayer, initValue);
     }
 
-    protected Boolean hasWinner() {
+    public Boolean hasWinner() {
         return winner != null;
     }
 

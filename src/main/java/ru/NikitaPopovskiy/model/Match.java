@@ -7,17 +7,20 @@ import lombok.RequiredArgsConstructor;
 
 import java.util.UUID;
 
-@RequiredArgsConstructor
 @Getter
 public class Match {
-    @NonNull
     private final UUID id;
-    @NonNull
     private final Player firstPlayer;
-    @NonNull
     private final Player secondPlayer;
-    private final SetScore currentScoreSet = new SetScore(firstPlayer, secondPlayer);
+    private final SetScore currentScoreSet;
     Player winner;
+
+    public Match(UUID id, Player firstPlayer, Player secondPlayer) {
+        this.id = id;
+        this.firstPlayer = firstPlayer;
+        this.secondPlayer = secondPlayer;
+        this.currentScoreSet = new SetScore(firstPlayer, secondPlayer);
+    }
 
     public void pointByWon(Player player) {
         currentScoreSet.pointWonBy(player);

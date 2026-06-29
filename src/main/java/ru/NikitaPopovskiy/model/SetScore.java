@@ -9,10 +9,11 @@ import java.util.Map;
 public class SetScore extends AbstractScore<Integer> {
     private static final int SCORE_TO_WIN = 2;
     @Getter
-    private GameScore currentGameScore;
+    private GameScore currentGameScore ;
 
     public SetScore(Player firstPlayer, Player secondPlayer) {
         super(firstPlayer, secondPlayer, 0);
+        this.currentGameScore = new GameScore(firstPlayer, secondPlayer);
     }
 
     @Override

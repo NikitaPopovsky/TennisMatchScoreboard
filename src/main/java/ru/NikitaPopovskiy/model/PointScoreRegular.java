@@ -16,10 +16,11 @@ public class PointScoreRegular extends AbstractPointScore<TennisPoint> {
 
         if (isWin(pointWinnerScore, opponentScore)) {
             this.winner = pointWinner;
+            return;
         }
 
         if (pointWinnerScore == FORTY && opponentScore == AD) {
-            updatePlayerScore(pointWinner, FORTY);
+            updatePlayerScore(opponent, FORTY);
         } else {
             updatePlayerScore(pointWinner, pointWinnerScore.next());
         }
@@ -31,4 +32,6 @@ public class PointScoreRegular extends AbstractPointScore<TennisPoint> {
         return (pointWinnerScore == FORTY && pointWinnerScore.isMore(opponentScore))
                 || pointWinnerScore == AD;
     }
+
+
 }

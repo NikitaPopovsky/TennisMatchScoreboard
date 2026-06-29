@@ -42,7 +42,7 @@ public class GameScore extends AbstractScore<Integer> {
         if (tieBreak) {
             this.currentPointScore = new PointScoreTiebreak(firstPlayer, secondPlayer);
         } else {
-            this.currentPointScore = new PointScoreTiebreak(firstPlayer, secondPlayer);
+            this.currentPointScore = new PointScoreRegular(firstPlayer, secondPlayer);
         }
     }
 

@@ -16,13 +16,12 @@ public class MatchHibernateDao implements MatchDao {
     }
 
     @Override
-    public MatchEntity save(MatchEntity match) {
+    public void save(MatchEntity match) {
         try (Session session = sessionFactory.openSession()) {
             session.beginTransaction();
             session.persist(match);
 
             session.getTransaction().commit();
-            return match;
         } catch (Exception e) {
             throw new DataBaseUnavailableException(ExceptionMessage.DB_NOT_UNAVAILABLE.getMessage());
         }

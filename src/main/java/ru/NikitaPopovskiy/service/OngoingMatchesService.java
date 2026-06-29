@@ -18,8 +18,8 @@ public class OngoingMatchesService {
         this.finishedMatchesService = finishedMatchesService;
     }
 
-    public void addMatch (Match match) {
-        currencyMatches.put(match.getId(), match);
+    public void addMatch (UUID uuid, Match match) {
+        currencyMatches.put(uuid, match);
     }
 
     public MatchDto addPoint (UUID matchId, int playerId) {

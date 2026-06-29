@@ -16,15 +16,14 @@ public class NewMatchService {
         this.ongoingMatchesService = ongoingMatchesService;
     }
 
-    public MatchDto createNewMatch (String firstPlayerName, String secondPlayerName) {
+    public UUID createNewMatch (String firstPlayerName, String secondPlayerName) {
         Player firstPlayer = playerService.getOrCreate(firstPlayerName);
         Player secondPlayer = playerService.getOrCreate(secondPlayerName);
-        UUID id = UUID.randomUUID();
-        Match match = new Match(id, firstPlayer, secondPlayer);
+        Match match = new Match(firstPlayer, secondPlayer);
+        UUID uuid = UUID.randomUUID();
+        ongoingMatchesService.addMatch(uuid, match);
 
-        ongoingMatchesService.addMatch(match);
-
-        return MatchMapper.toDTO(match);
+        return uuid;
     }
 
 

@@ -1,15 +1,13 @@
 package ru.NikitaPopovskiy.entity;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.util.UUID;
 
 @Entity
 @Getter
-@AllArgsConstructor
+@RequiredArgsConstructor
 @NoArgsConstructor
 @Table(name = "matches")
 public class MatchEntity {
@@ -17,11 +15,14 @@ public class MatchEntity {
     private UUID id;
     @ManyToOne
     @JoinColumn(name = "player1", referencedColumnName = "id")
+    @NonNull
     private PlayerEntity player1;
     @ManyToOne
     @JoinColumn(name = "player2", referencedColumnName = "id")
+    @NonNull
     private PlayerEntity player2;
     @ManyToOne
     @JoinColumn(name = "winner", referencedColumnName = "id")
+    @NonNull
     private PlayerEntity winner;
 }

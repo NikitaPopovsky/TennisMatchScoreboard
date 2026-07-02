@@ -53,4 +53,26 @@ public class MatchHibernateDao implements MatchDao {
             throw new DataBaseUnavailableException(ExceptionMessage.DB_NOT_UNAVAILABLE.getMessage());
         }
     }
+
+    @Override
+    public int getCount() {
+        try (Session session = sessionFactory.openSession()) {
+            String hql = "SELECT COUNT(m) FROM MatchEntity m";
+            return session.createQuery(hql, Integer.class).uniqueResultOptional().orElse(0);
+        } catch (Exception e) {
+            throw new DataBaseUnavailableException(ExceptionMessage.DB_NOT_UNAVAILABLE.getMessage());
+        }
+    }
+
+    @Override
+    public int getCountByPlayerName(String name) {
+        try (Session session = sessionFactory.openSession()) {
+            String hql = "SELECT COUNT(m) FROM MatchEntity m WHERE m.player1.name = ''";
+            return session.createQuery(hql, Integer.class)
+                    .setParameter("name", name)
+                    .uniqueResultOptional().orElse(0);
+        } catch (Exception e) {
+            throw new DataBaseUnavailableException(ExceptionMessage.DB_NOT_UNAVAILABLE.getMessage());
+        }
+    }
 }

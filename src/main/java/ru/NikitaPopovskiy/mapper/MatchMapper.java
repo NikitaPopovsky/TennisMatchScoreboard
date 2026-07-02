@@ -18,7 +18,7 @@ public class MatchMapper {
         Player secondPlayer = match.getSecondPlayer();
         SetScore setScore = match.getCurrentScoreSet();
         GameScore gameScore = setScore.getCurrentGameScore();
-        DisplayScore pointScore = (DisplayScore) gameScore.getCurrentPointScore();
+        DisplayScore pointScore = gameScore.getCurrentPointScore();
         return MatchDto.builder()
                 .firstPlayerName(firstPlayer.getName())
                 .secondPlayerName(secondPlayer.getName())
@@ -36,7 +36,7 @@ public class MatchMapper {
         if (!match.hasWinner()) {
             throw new MatchHasNotWinnerException(ExceptionMessage.MATCH_HAS_NOT_WINNER.getMessage());
         }
-        return new MatchEntity(match.getId(), PlayerMapper.toEntity(match.getFirstPlayer()),
+        return new MatchEntity(PlayerMapper.toEntity(match.getFirstPlayer()),
                 PlayerMapper.toEntity(match.getSecondPlayer()),
                 PlayerMapper.toEntity(match.getWinner()));
     }

@@ -2,11 +2,13 @@ package ru.NikitaPopovskiy.service;
 
 import ru.NikitaPopovskiy.dao.MatchDao;
 import ru.NikitaPopovskiy.dto.MatchesPageDto;
+import ru.NikitaPopovskiy.entity.MatchEntity;
 import ru.NikitaPopovskiy.enums.SearchParameter;
 import ru.NikitaPopovskiy.mapper.MatchMapper;
-import ru.NikitaPopovskiy.mapper.MatchesMapper;
+import ru.NikitaPopovskiy.mapper.MatchesPageMapper;
 import ru.NikitaPopovskiy.model.Match;
 
+import java.util.List;
 import java.util.Map;
 
 public class FinishedMatchesService {
@@ -22,14 +24,20 @@ public class FinishedMatchesService {
     }
 
     public MatchesPageDto get(Map<SearchParameter, String> parameters) {
+        List<MatchEntity> matchesEntity;
+        int totalPages;
+
         int page = Integer.parseInt(parameters.getOrDefault(SearchParameter.PAGE, "1"));
         String playerName = parameters.getOrDefault(SearchParameter.PLAYER_NAME, "");
         int offset = (PAGE_SIZE * page - PAGE_SIZE) + 1;
 
         if (playerName.isEmpty()) {
-            return MatchesMapper.toDTO(matchDao.getAll(PAGE_SIZE, offset));
+            matchesEntity = matchDao.getAll(PAGE_SIZE, offset);
+            totalPages = matchDao.getCount();
         } else {
-            return MatchesMapper.toDTO(matchDao.getByPlayersName(playerName, PAGE_SIZE, offset));
+            matchesEntity = matchDao.getByPlayersName(playerName, PAGE_SIZE, offset);
+           totalPages = matchDao.getCountByPlayerName(playerName);
         }
+        return MatchesPageMapper.toDTO(matchesEntity, page, totalPages);
     }
 }

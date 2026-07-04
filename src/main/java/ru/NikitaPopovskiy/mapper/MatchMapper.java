@@ -1,16 +1,14 @@
 package ru.NikitaPopovskiy.mapper;
 
-import ru.NikitaPopovskiy.dto.MatchDto;
+import ru.NikitaPopovskiy.dto.CurrentMatchDto;
 import ru.NikitaPopovskiy.entity.MatchEntity;
 import ru.NikitaPopovskiy.enums.ExceptionMessage;
 import ru.NikitaPopovskiy.exception.MatchHasNotWinnerException;
 import ru.NikitaPopovskiy.model.*;
 
-import java.util.UUID;
-
 public class MatchMapper {
-    public static MatchDto toDTO (Match match) {
-        String winnerName = "";
+    public static CurrentMatchDto toDTO (Match match) {
+        String winnerName = null;
         if (match.hasWinner()) {
             winnerName = match.getWinner().getName();
         }
@@ -19,15 +17,18 @@ public class MatchMapper {
         SetScore setScore = match.getCurrentScoreSet();
         GameScore gameScore = setScore.getCurrentGameScore();
         DisplayScore pointScore = gameScore.getCurrentPointScore();
-        return MatchDto.builder()
+        Boolean isTieBreak = gameScore.isTieBreak();
+        return CurrentMatchDto.builder()
                 .firstPlayerName(firstPlayer.getName())
                 .secondPlayerName(secondPlayer.getName())
-                .firstPlayerSet(getPlayerScore(setScore,firstPlayer))
-                .secondPlayerSet(getPlayerScore(setScore, secondPlayer))
-                .firstPlayerGame(getPlayerScore(gameScore, firstPlayer))
-                .secondPlayerGame(getPlayerScore(gameScore, secondPlayer))
-                .firstPlayerPoint(getPlayerScore(pointScore, firstPlayer))
-                .secondPlayerPoint(getPlayerScore(pointScore, secondPlayer))
+                .firstPlayerSets(getPlayerScore(setScore,firstPlayer))
+                .secondPlayerSets(getPlayerScore(setScore, secondPlayer))
+                .firstPlayerGames(getPlayerScore(gameScore, firstPlayer))
+                .secondPlayerGames(getPlayerScore(gameScore, secondPlayer))
+                .firstPlayerPoints((isTieBreak) ? null : getPlayerScore(pointScore, firstPlayer))
+                .secondPlayerPoints((isTieBreak) ? null :getPlayerScore(pointScore, secondPlayer))
+                .firstPlayerTieBreakPoints((isTieBreak) ? getPlayerScore(pointScore, firstPlayer) : null)
+                .secondPlayerTieBreakPoints((isTieBreak) ? getPlayerScore(pointScore, secondPlayer) : null)
                 .winnerName(winnerName)
                 .build();
     }

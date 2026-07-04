@@ -24,7 +24,7 @@ public class GameScore extends AbstractScore<Integer> {
             int pointWinnerScore = score.get(pointWinner) + 1;
 
             updatePlayerScore(pointWinner, pointWinnerScore);
-            createNewPointScore(isTieBreak(pointWinnerScore, opponentScore));
+            createNewPointScore(checkTieBreak(pointWinnerScore, opponentScore));
             if (isWin(pointWinnerScore, opponentScore)) {
                 this.winner = pointWinner;
             }
@@ -46,7 +46,14 @@ public class GameScore extends AbstractScore<Integer> {
         }
     }
 
-    private Boolean isTieBreak (int playerScore, int opponentScore) {
+    private Boolean checkTieBreak(int playerScore, int opponentScore) {
         return playerScore == opponentScore && playerScore == SCORE_TO_WIN;
     }
+
+    public Boolean isTieBreak () {
+        return currentPointScore instanceof PointScoreTiebreak;
+    }
+
+
+
 }

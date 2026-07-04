@@ -1,7 +1,5 @@
 package ru.NikitaPopovskiy.service;
 
-import ru.NikitaPopovskiy.dto.MatchDto;
-import ru.NikitaPopovskiy.mapper.MatchMapper;
 import ru.NikitaPopovskiy.model.Match;
 import ru.NikitaPopovskiy.model.Player;
 

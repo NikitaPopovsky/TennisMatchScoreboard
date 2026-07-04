@@ -1,6 +1,8 @@
 package ru.NikitaPopovskiy.service;
 
-import ru.NikitaPopovskiy.dto.MatchDto;
+import ru.NikitaPopovskiy.dto.CurrentMatchDto;
+import ru.NikitaPopovskiy.enums.ExceptionMessage;
+import ru.NikitaPopovskiy.exception.MatchNotFoundException;
 import ru.NikitaPopovskiy.mapper.MatchMapper;
 import ru.NikitaPopovskiy.model.Match;
 import ru.NikitaPopovskiy.model.Player;
@@ -22,8 +24,8 @@ public class OngoingMatchesService {
         currencyMatches.put(uuid, match);
     }
 
-    public MatchDto addPoint (UUID matchId, int playerId) {
-        Player player = playerService.getById(playerId);
+    public CurrentMatchDto addPoint (UUID matchId, String playerName) {
+        Player player = playerService.getByName(playerName);
         Match match = getMatch(matchId);
 
         match.pointByWon(player);
@@ -36,7 +38,11 @@ public class OngoingMatchesService {
     }
 
     private Match getMatch (UUID id) {
-        return currencyMatches.get(id);
+        Match match = currencyMatches.get(id);
+        if (match == null) {
+            throw new MatchNotFoundException(ExceptionMessage.MATCH_NOT_FOUND.getMessage());
+        }
+        return match;
     }
 
 }

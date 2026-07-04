@@ -18,8 +18,8 @@ public class PlayerService {
         return PlayerMapper.toModel(playerEntity);
     }
 
-    public Player getById (int playerId) {
-        PlayerEntity playerEntity = playerDao.getById(playerId)
+    public Player getByName (String playerName) {
+        PlayerEntity playerEntity = playerDao.getByName(playerName)
                 .orElseThrow(()-> new PlayerNotFoundException(ExceptionMessage.PLAYER_NOT_FOUND.getMessage()));
         return PlayerMapper.toModel(playerEntity);
     }

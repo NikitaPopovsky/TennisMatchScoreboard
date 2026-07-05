@@ -1,5 +1,6 @@
 package ru.NikitaPopovskiy.service;
 
+import org.springframework.stereotype.Service;
 import ru.NikitaPopovskiy.dto.CurrentMatchDto;
 import ru.NikitaPopovskiy.enums.ExceptionMessage;
 import ru.NikitaPopovskiy.exception.MatchNotFoundException;
@@ -10,6 +11,7 @@ import ru.NikitaPopovskiy.model.Player;
 import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
 
+@Service
 public class OngoingMatchesService {
     private final ConcurrentHashMap<UUID, Match> currencyMatches = new ConcurrentHashMap<>();
     private final PlayerService playerService;
@@ -37,8 +39,12 @@ public class OngoingMatchesService {
         return MatchMapper.toDTO(match);
     }
 
-    private Match getMatch (UUID id) {
-        Match match = currencyMatches.get(id);
+    public CurrentMatchDto getMatchScore (UUID uuid) {
+        return MatchMapper.toDTO(getMatch(uuid));
+    }
+
+    private Match getMatch (UUID uuid) {
+        Match match = currencyMatches.get(uuid);
         if (match == null) {
             throw new MatchNotFoundException(ExceptionMessage.MATCH_NOT_FOUND.getMessage());
         }

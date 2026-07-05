@@ -1,10 +1,12 @@
 package ru.NikitaPopovskiy.service;
 
+import org.springframework.stereotype.Service;
 import ru.NikitaPopovskiy.model.Match;
 import ru.NikitaPopovskiy.model.Player;
 
 import java.util.UUID;
 
+@Service
 public class NewMatchService {
     private final PlayerService playerService;
     private final OngoingMatchesService ongoingMatchesService;

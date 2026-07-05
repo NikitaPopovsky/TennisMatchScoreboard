@@ -1,5 +1,6 @@
 package ru.NikitaPopovskiy.service;
 
+import org.springframework.stereotype.Service;
 import ru.NikitaPopovskiy.dao.PlayerDao;
 import ru.NikitaPopovskiy.entity.PlayerEntity;
 import ru.NikitaPopovskiy.enums.ExceptionMessage;
@@ -9,6 +10,7 @@ import ru.NikitaPopovskiy.model.Player;
 
 import java.util.Optional;
 
+@Service
 public class PlayerService {
     private PlayerDao playerDao;
 

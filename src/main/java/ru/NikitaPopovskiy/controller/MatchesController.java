@@ -5,17 +5,23 @@ import ru.NikitaPopovskiy.dto.CurrentMatchDto;
 import ru.NikitaPopovskiy.dto.MatchesPageDto;
 import ru.NikitaPopovskiy.dto.request.CreateMatchRequest;
 import ru.NikitaPopovskiy.dto.request.PlayerNameRequest;
-import ru.NikitaPopovskiy.service.FinishedMatchesService;
-import ru.NikitaPopovskiy.service.NewMatchService;
-import ru.NikitaPopovskiy.service.OngoingMatchesService;
+import ru.NikitaPopovskiy.service.*;
 
 import java.util.UUID;
 
 @RestController("/matches")
 public class MatchesController {
-    private NewMatchService newMatchService;
-    private OngoingMatchesService ongoingMatchesService;
-    private FinishedMatchesService finishedMatchesService;
+    private final NewMatchService newMatchService;
+    private final OngoingMatchesService ongoingMatchesService;
+    private final FinishedMatchesService finishedMatchesService;
+
+    public MatchesController(NewMatchService newMatchService,
+                             OngoingMatchesService ongoingMatchesService,
+                             FinishedMatchesService finishedMatchesService) {
+        this.newMatchService = newMatchService;
+        this.ongoingMatchesService = ongoingMatchesService;
+        this.finishedMatchesService = finishedMatchesService;
+    }
 
     @PostMapping("/")
     public UUID createMatch(@RequestBody CreateMatchRequest createMatchRequest) {

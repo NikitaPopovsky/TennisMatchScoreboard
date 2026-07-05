@@ -12,7 +12,11 @@ import java.util.Optional;
 
 @Service
 public class PlayerService {
-    private PlayerDao playerDao;
+    private final PlayerDao playerDao;
+
+    public PlayerService(PlayerDao playerDao) {
+        this.playerDao = playerDao;
+    }
 
     public Player getOrCreate (String playerName) {
         Optional<PlayerEntity> playerEntityOptional = playerDao.getByName(playerName);

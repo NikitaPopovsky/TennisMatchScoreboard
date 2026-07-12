@@ -15,6 +15,7 @@ public class NewMatchServiceImpl implements NewMatchService{
     }
 
     public UUID createNewMatch (String firstPlayerName, String secondPlayerName) {
+        playerService.validatePlayersName(firstPlayerName, secondPlayerName);
         Player firstPlayer = playerService.getOrCreate(firstPlayerName);
         Player secondPlayer = playerService.getOrCreate(secondPlayerName);
         Match match = new Match(firstPlayer, secondPlayer);

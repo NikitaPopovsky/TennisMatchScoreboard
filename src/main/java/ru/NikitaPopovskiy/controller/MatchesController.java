@@ -9,7 +9,8 @@ import ru.NikitaPopovskiy.service.*;
 
 import java.util.UUID;
 
-@RestController("/matches")
+@RestController
+@RequestMapping("/matches")
 public class MatchesController {
     private final NewMatchService newMatchService;
     private final OngoingMatchesService ongoingMatchesService;
@@ -23,7 +24,7 @@ public class MatchesController {
         this.finishedMatchesService = finishedMatchesService;
     }
 
-    @PostMapping("/")
+    @PostMapping
     public UUID createMatch(@RequestBody CreateMatchRequest createMatchRequest) {
         return newMatchService.createNewMatch(createMatchRequest.getFirstPlayerName(), createMatchRequest.getSecondPlayerName());
     }
@@ -38,7 +39,7 @@ public class MatchesController {
         return ongoingMatchesService.getMatchScore(uuid);
     }
 
-    @GetMapping("/")
+    @GetMapping
     public MatchesPageDto getMatches (@RequestParam(defaultValue = "1") int page,
                                       @RequestParam(required = false) String playerName) {
         return finishedMatchesService.get(page, playerName);

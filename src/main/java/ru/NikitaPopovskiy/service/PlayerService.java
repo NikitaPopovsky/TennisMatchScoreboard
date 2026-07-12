@@ -4,6 +4,7 @@ import org.springframework.stereotype.Service;
 import ru.NikitaPopovskiy.dao.PlayerDao;
 import ru.NikitaPopovskiy.entity.PlayerEntity;
 import ru.NikitaPopovskiy.enums.ExceptionMessage;
+import ru.NikitaPopovskiy.exception.InvalidPlayerNameException;
 import ru.NikitaPopovskiy.exception.PlayerNotFoundException;
 import ru.NikitaPopovskiy.mapper.PlayerMapper;
 import ru.NikitaPopovskiy.model.Player;
@@ -28,5 +29,13 @@ public class PlayerService {
         PlayerEntity playerEntity = playerDao.getByName(playerName)
                 .orElseThrow(()-> new PlayerNotFoundException(ExceptionMessage.PLAYER_NOT_FOUND.getMessage()));
         return PlayerMapper.toModel(playerEntity);
+    }
+
+    public void validatePlayersName(String firstName, String secondName) {
+        if (firstName.isEmpty() || secondName.isEmpty() ||
+        firstName.length() > 50 || secondName.length() > 50
+                || firstName.equals(secondName))
+            throw new InvalidPlayerNameException("Invalid player name");
+
     }
 }
